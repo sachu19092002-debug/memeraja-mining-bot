@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MemeRaja Mining</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#07111f;--card:#0d2035;--card2:#102945;--text:#f6fbff;--muted:#8ea6c4;--lime:#baff00;--blue:#1597ff;--line:#173653}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 15%,#12345b 0,#07111f 45%,#040a12 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}button{font:inherit;border:0;color:inherit}.app{max-width:720px;margin:auto;min-height:100vh;padding:18px 14px 100px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;align-items:center;gap:10px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#ffd21a,#ff8c00);display:grid;place-items:center;font-size:24px;box-shadow:0 0 24px #ffb30055}.brand h1{font-size:22px;margin:0}.brand small{color:var(--muted)}.pill{background:#102b45;border:1px solid #1c466b;border-radius:999px;padding:8px 12px;color:#b8cae0;font-size:12px}.hero{background:linear-gradient(145deg,#0f2c49,#091a2d);border:1px solid #1c466b;border-radius:28px;padding:20px;box-shadow:0 16px 50px #0007;margin-bottom:16px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.balance{font-size:42px;font-weight:900;letter-spacing:-1px;margin:10px 0 2px}.unit{color:var(--lime);font-size:18px}.muted{color:var(--muted)}.progress{height:8px;background:#132a40;border-radius:99px;overflow:hidden;margin:16px 0}.progress i{display:block;height:100%;width:42%;background:linear-gradient(90deg,var(--blue),var(--lime));border-radius:99px}.minebox{text-align:center;padding:20px 0 8px}.coin{width:190px;height:190px;margin:8px auto 18px;border-radius:50%;display:grid;place-items:center;font-size:76px;background:radial-gradient(circle,#ffd51a 0,#ffad00 55%,#d87900 100%);border:8px solid #ffdb46;box-shadow:0 0 0 5px #6f4100,0 0 55px #ffbd004d}.minebox h2{margin:0;font-size:18px}.minebox .timer{font-size:14px;color:#9db5d0;margin-top:6px}.primary{width:100%;padding:16px;border-radius:18px;background:linear-gradient(90deg,#b8ff00,#e2ff00);color:#07110b;font-weight:900;font-size:17px;box-shadow:0 10px 30px #baff0030}.primary:disabled{opacity:.45}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}.card{background:linear-gradient(145deg,#0c2137,#09192a);border:1px solid var(--line);border-radius:20px;padding:16px}.card h3{margin:0 0 7px;font-size:15px}.big{font-size:26px;font-weight:900}.task{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.task button{background:#148fff;padding:10px 14px;border-radius:13px;font-weight:800}.task button.done{background:#1a394e;color:#8fa7bf}.level{font-size:30px;font-weight:900;color:var(--lime)}.nav{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);width:min(690px,calc(100% - 20px));background:#091a2bfa;border:1px solid #1a3d5e;backdrop-filter:blur(16px);border-radius:22px;padding:8px;display:grid;grid-template-columns:repeat(5,1fr);z-index:5}.nav button{background:transparent;color:#7891ad;padding:7px 2px;border-radius:15px;font-size:11px}.nav button.active{color:var(--lime);background:#baff0010}.nav b{display:block;font-size:22px;margin-bottom:3px}.section{display:none}.section.active{display:block}.notice{padding:12px 14px;background:#0b263d;border:1px solid #1a4567;border-radius:16px;color:#9db5d0;font-size:12px;margin-top:12px}.ref{word-break:break-all;color:#8fc7ff}.rank{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line)}.rank:last-child{border-bottom:0}.upgrade{margin-top:12px;width:100%;padding:13px;border-radius:15px;background:#126fc0;font-weight:800}.small{font-size:12px}.danger{color:#ffbf6b}@media(max-width:420px){.balance{font-size:35px}.coin{width:165px;height:165px;font-size:64px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">👑</div><div><h1>MemeRaja</h1><small>Mining community</small></div></div>
+  <div class="pill">POINTS ONLY</div>
+</header>
+
+<section id="mine" class="section active">
+  <div class="hero">
+    <div class="row"><span class="muted">My balance</span><span class="pill" id="userTag">@miner</span></div>
+    <div class="balance" id="balance">0 <span class="unit">MRG</span></div>
+    <div class="muted small">Community points • no guaranteed monetary value</div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="row small"><span>Level <b id="level">1</b></span><span id="levelText">0 / 500 MRG</span></div>
+  </div>
+  <div class="hero minebox">
+    <h2>⛏️ Daily Mining</h2>
+    <div class="coin">👑</div>
+    <div class="big">+50 <span class="unit">MRG</span></div>
+    <div class="timer" id="timer">Ready to mine</div>
+    <br><button class="primary" id="mineBtn" onclick="claimMine()">CLAIM +50 MRG</button>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>⚡ Mining speed</h3><div class="big">50/day</div><div class="muted small">Base rate</div></div>
+    <div class="card"><h3>🔥 Streak</h3><div class="big" id="streak">0 days</div><div class="muted small">Keep checking in</div></div>
+  </div>
+</section>
+
+<section id="tasks" class="section">
+  <div class="hero"><div class="row"><div><h2 style="margin:0">🎯 Earn Rewards</h2><div class="muted small">Community activities</div></div><div class="level">+20</div></div></div>
+  <div class="card" id="taskList">
+    <div class="task"><div><b>Daily check-in</b><div class="muted small">Claim once per day</div></div><button onclick="doTask(this,5)">+5</button></div>
+    <div class="task"><div><b>Join MemeRaja community</b><div class="muted small">Community task</div></div><button onclick="doTask(this,20)">+20</button></div>
+    <div class="task"><div><b>Share MemeRaja</b><div class="muted small">Invite friends</div></div><button onclick="shareMemeRaja(this)">Share</button></div>
+  </div>
+  <div class="notice">Tasks are points-based community activities. Do not treat MRG as a promise of profit or cash value.</div>
+</section>
+
+<section id="miners" class="section">
+  <div class="hero"><div class="row"><div><h2 style="margin:0">⚡ Miners Store</h2><div class="muted small">Progress through community levels</div></div><div class="level" id="levelBig">1</div></div></div>
+  <div class="grid" id="levels"></div>
+</section>
+
+<section id="friends" class="section">
+  <div class="hero"><h2 style="margin:0 0 8px">👥 Friends</h2><div class="muted">Invite friends and earn community points when referral activity qualifies.</div><div class="card" style="margin-top:14px"><div class="muted small">Your referral link</div><div class="ref" id="refLink">Loading…</div><button class="primary" style="margin-top:12px" onclick="copyRef()">COPY LINK</button></div></div>
+  <div class="grid"><div class="card"><h3>Referrals</h3><div class="big" id="refs">0</div></div><div class="card"><h3>Reward</h3><div class="big">+100</div><div class="muted small">per qualified referral</div></div></div>
+</section>
+
+<section id="wallet" class="section">
+  <div class="hero"><h2 style="margin:0">💰 Wallet</h2><div class="balance" id="walletBal">0 <span class="unit">MRG</span></div><div class="notice">MRG is currently a community-points balance inside this app. No withdrawal, cash value, or token listing is promised.</div></div>
+  <div class="card"><h3>🏆 Local leaderboard</h3><div class="rank"><span>🥇 You</span><b id="rank1">0 MRG</b></div><div class="rank"><span>🥈 MemeRaja Miner</span><b>480 MRG</b></div><div class="rank"><span>🥉 Early Raja</span><b>350 MRG</b></div></div>
+</section>
+</div>
+
+<nav class="nav">
+<button class="active" onclick="show('mine',this)"><b>⛏️</b>Mine</button>
+<button onclick="show('tasks',this)"><b>🎯</b>Tasks</button>
+<button onclick="show('miners',this)"><b>⚡</b>Miners</button>
+<button onclick="show('friends',this)"><b>👥</b>Friends</button>
+<button onclick="show('wallet',this)"><b>💰</b>Wallet</button>
+</nav>
+
+<script>
+const tg=window.Telegram?.WebApp;
+tg?.ready(); tg?.expand();
+const key='memeraja_demo_v1';
+let s=JSON.parse(localStorage.getItem(key)||'{"points":0,"lastMine":0,"streak":0,"tasks":{},"refs":0}');
+const user=tg?.initDataUnsafe?.user;
+document.getElementById('userTag').textContent=user?.username?'@'+user.username:(user?.first_name||'Miner');
+const ref=user?.id?`https://t.me/MemeRajaMining_Bot?start=${user.id}`:'Open this Mini App from Telegram to get your referral link';
+document.getElementById('refLink').textContent=ref;
+function save(){localStorage.setItem(key,JSON.stringify(s));render()}
+function render(){
+ document.getElementById('balance').innerHTML=`${s.points} <span class="unit">MRG</span>`;
+ document.getElementById('walletBal').innerHTML=`${s.points} <span class="unit">MRG</span>`;
+ document.getElementById('rank1').textContent=s.points+' MRG';
+ document.getElementById('streak').textContent=s.streak+' days';
+ const lvl=Math.max(1,Math.floor(s.points/500)+1), cur=(lvl-1)*500, next=lvl*500;
+ document.getElementById('level').textContent=lvl;document.getElementById('levelBig').textContent=lvl;document.getElementById('levelText').textContent=`${s.points-cur} / ${next-cur} MRG`;document.getElementById('bar').style.width=Math.min(100,((s.points-cur)/(next-cur))*100)+'%';
+ const wait=86400000-(Date.now()-s.lastMine), btn=document.getElementById('mineBtn'), timer=document.getElementById('timer');
+ if(wait>0){btn.disabled=true; timer.textContent='Next claim in '+fmt(wait)}else{btn.disabled=false;timer.textContent='Ready to mine +50 MRG'}
+}
+function fmt(ms){let h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000),sec=Math.floor(ms%60000/1000);return `${h}h ${m}m ${sec}s`}
+function claimMine(){if(Date.now()-s.lastMine<86400000)return;s.points+=50;s.lastMine=Date.now();s.streak+=1;save();tg?.HapticFeedback?.notificationOccurred('success')}
+function doTask(btn,n){if(btn.classList.contains('done'))return;btn.classList.add('done');btn.textContent='DONE';s.points+=n;s.tasks[Date.now()]=1;save()}
+function shareMemeRaja(btn){if(navigator.share){navigator.share({title:'MemeRaja Mining',text:'Join MemeRaja Mining community',url:ref})}else{copyRef()}btn.classList.add('done');btn.textContent='DONE';s.points+=5;save()}
+function copyRef(){navigator.clipboard?.writeText(ref);tg?.showPopup?.({title:'Referral link',message:'Link copied!',buttons:[{type:'ok'}]})}
+function show(id,el){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));el.classList.add('active');if(id==='miners')buildLevels()}
+function buildLevels(){let wrap=document.getElementById('levels');wrap.innerHTML='';let lvl=Math.max(1,Math.floor(s.points/500)+1);for(let i=1;i<=8;i++){let need=(i-1)*500, speed=50+(i-1)*10;let d=document.createElement('div');d.className='card';d.innerHTML=`<h3>Level ${i} ${i===lvl?'<span class="pill">CURRENT</span>':''}</h3><div class="big">${speed} MRG/day</div><div class="muted small">${s.points>=need?'Unlocked':'Need '+need+' MRG'}</div><button class="upgrade" ${s.points<need?'disabled':''}>${s.points>=need?'ACTIVE':'LOCKED'}</button>`;wrap.appendChild(d)}}
+setInterval(render,1000);render();
+</script>
+</body>
+</html>
